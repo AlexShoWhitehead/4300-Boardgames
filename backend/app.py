@@ -32,7 +32,7 @@ CORS(app)
 def home():
     if request.method == "POST":
         query = request.form.get("q")
-        return output(query)
+        return render_template('catalogue.html', tables=(output(query)))
     return render_template('base.html', title="sample html")
 
 

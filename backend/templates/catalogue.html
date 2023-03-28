@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> Table </title>    
+        <link rel="stylesheet" type="text/css" href="../static/style.css">          
+    </head>
+    <body>
+        <div align="center">
+            <table>
+                <h1>
+                <!--Displaying the converted table-->
+                     {% for table in tables %}
+                    <h2>{{table}}</h2>    
+                    {% endfor %}                           
+                </h1> 
+            </table>
+        </div>
+    </body>
+</html>
