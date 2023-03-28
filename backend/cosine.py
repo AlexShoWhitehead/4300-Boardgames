@@ -1,7 +1,6 @@
 # This is the start of the prototype
 import pandas as pd
 import numpy as np
-import csv
 import re
 
 
