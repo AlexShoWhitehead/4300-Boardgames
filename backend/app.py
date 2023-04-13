@@ -33,8 +33,10 @@ def sql_search(episode):
     data = mysql_engine.query_selector(query_sql)
     return json.dumps([dict(zip(keys,i)) for i in data])
 
-@app.route("/")
+@app.route("/", methods["GET","POST"])
 def home():
+    if request.method=="POST":
+        query = request.form.get()
     return render_template('base.html',title="sample html")
 
 @app.route("/episodes")

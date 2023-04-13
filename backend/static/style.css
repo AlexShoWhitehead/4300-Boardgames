@@ -12,44 +12,73 @@
     flex-direction: column;
 }
 
-#google-c{
-    color:#4285F4;
+.elmt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-#google-s{
-    color:#DB4437;
+.elmt input{
+    margin-left: 10px;
+    padding:2px;
+}
+.elmt input:hover{
+    cursor: pointer;
+}
+.elmt select:hover{
+    cursor: pointer;
 }
 
-#google-4{
-    color:	#F4B400;
+.elmt select{
+    padding:2px;
+    margin-left: 10px;
 }
 
-#google-3{
-    color:	#4285F4;
+.subm{
+    display: flex;
+    font-size: 20px;
+    margin-top: 10px;
+    border: none;
+    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: rgb(85, 41, 41);
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    border:2px solid rgb(77, 0, 0);
+    }
+    .subm:hover {
+    cursor:pointer;
+    color:rgb(255, 255, 255);
+    background-color: rgb(85, 41, 41);
+    border:2px solid rgb(255, 255, 255);
+    }
+
+h1{
+    font-size: 50px;
+    margin-top: 30px;
+    text-align: center;
 }
 
-#google-0-1{
-    color:	#0F9D58;
-}
-
-#google-0-2{
-    color:#DB4437;
-}
-
-.google-colors{
+.header{
     display: flex;
     align-items: center;
     font-size: 48px;
     font-family: 'Open Sans', sans-serif;
 }
 
-.google-colors h1{
+.header h1{
+    color:rgb(83, 21, 21);
     margin-bottom: 0;
     margin-right: 3px;
 }
 
 .input-box{
-    border-radius: 50px;
+    border-radius: 10px;
     border:1px solid black;
     display: flex;
     align-items: center;
