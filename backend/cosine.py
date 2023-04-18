@@ -22,8 +22,8 @@ def make_dataframe(csv_path, delimiter):
 
     return df
 
-description_data = pd.read_csv('Game_Data.csv')
-game_data =  make_dataframe('master_database.csv', ';')
+description_data = pd.read_csv('datasets/Game_Data.csv')
+game_data =  make_dataframe('datasets/master_database.csv', ';')
 game_data = game_data.merge(description_data, on='name', how="right").drop("ID", axis='columns').dropna()
 
 def tokenize(text):
