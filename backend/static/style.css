@@ -26,9 +26,9 @@
     margin-left: 10px;
     padding:2px;
 }
-.elmt input:hover{
-    cursor: pointer;
-}
+
+
+
 .elmt select:hover{
     cursor: pointer;
 }
@@ -82,6 +82,7 @@ h1{
 }
 
 .input-box{
+    border-radius: 10px;
     border-radius: 10px;
     border:1px solid black;
     display: flex;

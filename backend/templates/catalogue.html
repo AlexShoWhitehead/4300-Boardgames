@@ -2,16 +2,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title> Table </title>    
-        <link rel="stylesheet" type="text/css" href="../static/style.css">          
+        <title> Table </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+        <link rel="stylesheet" type="text/css" href="../static/style.css"> 
+        <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Montserrat&family=Open+Sans:wght@500&display=swap" rel="stylesheet">         
     </head>
     <body>
         <div align="center">
             <table>
                 <h1>
+                    Here are your games!
+                </h1>
+                <h1>
                 <!--Displaying the converted table-->
                      {% for table in tables %}
-                    <h2>{{table}}</h2>    
+                    <h2>{{table}}</h2>
+                    <h3></h3>    
                     {% endfor %}                           
                 </h1> 
             </table>
