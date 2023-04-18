@@ -36,6 +36,23 @@ def tokenize(text):
     return re.findall(r"[a-zA-z]+", text.lower())
 # I want to make a dictionary containing every word in the descriptions and their counts
 
+def filter(age=0, length=0, players=2): 
+  """Filters out any games not fulfilling user needs
+  Returns: filtered game_data  
+  """
+  strAge = str(age)
+  strLength = str(length)
+  strPlayers = str(players)
+
+  ageFilter = game_data['min_age'] <= strAge
+  lengthFilter = game_data['play_time'] >= strLength
+  playersFilter = (game_data['min_players'] <= strPlayers)
+  players2Filter = (game_data['max_players'] >= strPlayers)
+
+  return game_data[ageFilter & lengthFilter & playersFilter & players2Filter]
+
+game_data = filter()
+
 word_count = {}
 
 descriptions = game_data['description'].astype('string').to_numpy()
