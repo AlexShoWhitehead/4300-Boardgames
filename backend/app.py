@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request
 from flask_cors import CORS
 from helpers.MySQLDatabaseHandler import MySQLDatabaseHandler
-from cosine import output
+from cosine import output, filter
 
 # ROOT_PATH for linking with all your files. 
 # Feel free to use a config.py or settings.py with a global export variable
@@ -32,9 +32,12 @@ CORS(app)
 def home():
     if request.method == "POST":
         query = request.form.get("q")
-        return render_template('catalogue.html', tables=(output(query)))
+        query2 = request.form.get("ages")
+        query3 = request.form.get("length")
+        query4 = request.form.get("player_num")
+        return render_template('catalogue.html', tables=(output(query, query2, query3, query4)))
     return render_template('base.html', title="sample html")
 
 
 
-app.run(debug=True)
+# app.run(debug=True)
