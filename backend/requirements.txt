@@ -17,7 +17,7 @@ protobuf==3.20.3
 pycparser==2.21
 PyMySQL==1.0.2
 python-dateutil==2.8.2
-pytz==2017.
+pytz==2017.03
 regex==2022.10.31
 six==1.16.0
 smmap==5.0.0
