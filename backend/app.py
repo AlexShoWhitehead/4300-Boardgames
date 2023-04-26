@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 from helpers.MySQLDatabaseHandler import MySQLDatabaseHandler
 # from cosine import output, filter
+# from cosine import output, filter
 
 # ROOT_PATH for linking with all your files. 
 # Feel free to use a config.py or settings.py with a global export variable
@@ -13,7 +14,7 @@ os.environ['ROOT_PATH'] = os.path.abspath(os.path.join("..",os.curdir))
 # Don't worry about the deployment credentials, those are fixed
 # You can use a different DB name if you want to
 MYSQL_USER = "root"
-MYSQL_USER_PASSWORD = ""
+MYSQL_USER_PASSWORD = "21Alshow!"
 MYSQL_PORT = 3306
 MYSQL_DATABASE = "master_database"
 
@@ -35,7 +36,7 @@ def home():
         query2 = request.form.get("ages")
         query3 = request.form.get("length")
         query4 = request.form.get("player_num")
-        return render_template('catalogue.html', tables=((query, query2, query3, query4)))
+        return render_template('catalogue.html', tables=())
     return render_template('base.html', title="sample html")
 
 
