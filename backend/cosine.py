@@ -139,7 +139,7 @@ def get_ranked_list(query, num_of_results = 20):
 # games
 def output(q, ages, len, player):
 
-  filter(age = ages, length = len, players = player)
+  # filter(age = ages, length = len, players = player)
 
   query = vectorize(q, good_types, tokenize)
   ranked_list = get_ranked_list(query)
