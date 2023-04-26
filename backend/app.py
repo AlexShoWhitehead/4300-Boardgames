@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request
 from flask_cors import CORS
 from helpers.MySQLDatabaseHandler import MySQLDatabaseHandler
-from cosine import output, filter
+# from cosine import output, filter
 
 # ROOT_PATH for linking with all your files. 
 # Feel free to use a config.py or settings.py with a global export variable
@@ -15,7 +15,7 @@ os.environ['ROOT_PATH'] = os.path.abspath(os.path.join("..",os.curdir))
 MYSQL_USER = "root"
 MYSQL_USER_PASSWORD = ""
 MYSQL_PORT = 3306
-MYSQL_DATABASE = "boardgamesdb"
+MYSQL_DATABASE = "master_database"
 
 mysql_engine = MySQLDatabaseHandler(MYSQL_USER,MYSQL_USER_PASSWORD,MYSQL_PORT,MYSQL_DATABASE)
 
@@ -35,9 +35,8 @@ def home():
         query2 = request.form.get("ages")
         query3 = request.form.get("length")
         query4 = request.form.get("player_num")
-        return render_template('catalogue.html', tables=(output(query, query2, query3, query4)))
+        return render_template('catalogue.html', tables=((query, query2, query3, query4)))
     return render_template('base.html', title="sample html")
 
 
-
-# app.run(debug=True)
+app.run(debug=True)
