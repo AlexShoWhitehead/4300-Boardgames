@@ -133,7 +133,7 @@ def get_ranked_list(query, num_of_results = 20):
   ranked_list = []
   for i in range(num_of_results):
     index = sorted_index[len(sorted_index) - 1 - i]
-    return_vals = (names[index], descriptions[index], comments[index], images[index], average_ratings[index], categories[index])
+    return_vals = (names[index], descriptions[index], images[index], average_ratings[index], categories[index])
     ranked_list.append(return_vals)
 
   return ranked_list
@@ -142,7 +142,6 @@ def get_ranked_list(query, num_of_results = 20):
 # games
 def output(q):
   query = vectorize(q, good_types, tokenize)
-
   ranked_list = get_ranked_list(query)
 
   return ranked_list

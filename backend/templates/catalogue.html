@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Montserrat&family=Open+Sans:wght@500&display=swap" rel="stylesheet">         
     </head>
     <body>
-        <div align="center">
+        <div align ="center">
             <table>
                 <h1>
                     Here are your games!
@@ -18,8 +18,11 @@
                 <h1>
                 <!--Displaying the converted table-->
                      {% for table in tables %}
-                    <h2>{{table}}</h2>
-                    <h3></h3>    
+                    <h2 class = "ital">{{table.0}}</h2>
+                    <h3 class = "ital">{{table.1}}</h3>
+                    <p> {{table.2}}</p>
+                    <!-- <img src = "{{table.2}}">  -->
+                    <img src = "https://cf.geekdo-images.com/U8rfGquv9OOicQCgElbAcA__original/img/lA6RAheukgajSKPNXsTOKy9b2DQ=/0x0/filters:format(jpeg)/pic3493003.jpg">
                     {% endfor %}                           
                 </h1> 
             </table>
