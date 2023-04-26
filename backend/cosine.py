@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import re
-import ast
 import csv
 
 
@@ -50,8 +49,6 @@ def filter(age=0, length=0, players=2):
   players2Filter = (game_data['max_players'] >= strPlayers)
 
   return game_data[ageFilter & lengthFilter & playersFilter & players2Filter]
-
-game_data = filter()
 
 word_count = {}
 
@@ -140,7 +137,10 @@ def get_ranked_list(query, num_of_results = 20):
 
 # finally we should be able to take in the query and return the most similar
 # games
-def output(q):
+def output(q, ages, len, player):
+
+  filter(age = ages, length = len, players = player)
+
   query = vectorize(q, good_types, tokenize)
   ranked_list = get_ranked_list(query)
 
