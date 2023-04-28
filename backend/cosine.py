@@ -22,7 +22,7 @@ def make_dataframe(csv_path, delimiter):
     return df
 
 description_data = pd.read_csv('datasets/Game_Data.csv')
-game_data =  make_dataframe('master_database.csv', ';')
+game_data =  make_dataframe('datasets/master_database.csv', ';')
 game_data = game_data.merge(description_data, on='name', how="right").drop("ID", axis='columns').dropna()
 
 def tokenize(text):
@@ -120,16 +120,51 @@ images = game_data['image_data'].astype('string').to_numpy()
 average_ratings = game_data['rating_average'].astype('string').to_numpy()
 categories = game_data['rating_average'].astype('string').to_numpy()
 
-def get_ranked_list(query, num_of_results = 20):
+def make_matrix(query):
   sim_scores = np.empty(len(names))
-
   for i in range(len(description_vectors)):
     sim_scores[i] = cosine_sim(query, description_vectors[i])
+  return sim_scores
+
+def rocchio(initQuery, relevant, irrelevant,a=.3, b=.3, c=.8, clip = True):
+  
+  sim_scores = make_matrix(initQuery)
   sorted_index = np.argsort(sim_scores)
+
+
+  if not len(relevant) == 0:
+    secondPre = b * (1 / len(relevant))
+    secondSum = sorted_index[relevant[0]]
+    for d in range(len(relevant) - 1):
+      secondSum = secondSum + sorted_index[relevant[d + 1]]
+      secondSum = secondPre * secondSum
+      initQuery = initQuery + secondSum
+    
+  if not len(irrelevant) == 0:
+    thirdPre = c * (1 / len(irrelevant))
+    thirdSum =sorted_index[irrelevant[0]]
+    for i in range(len(irrelevant) - 1):
+      thirdSum = thirdSum + sorted_index[irrelevant[i + 1]]
+      thirdSum = thirdPre * thirdSum
+      initQuery = initQuery - thirdSum
+    
+  if(clip):
+    for j in range(len(initQuery)):
+      if initQuery[j] < 0:
+        initQuery[j] = 0
+    
+  return initQuery
+
+def get_ranked_list(query, relevant_in, irrelevant_in, num_of_results = 20):
+  tempList = []
+
+  for i in range(len(relevant_in)):
+        movie = names[relevant_in[i]]
+        tempList.append=(rocchio(movie, relevant_in[i], irrelevant_in[i]))
 
   ranked_list = []
   for i in range(num_of_results):
-    index = sorted_index[len(sorted_index) - 1 - i]
+    index = tempList[len(tempList) - 1 - i]
     return_vals = (names[index], descriptions[index], images[index], average_ratings[index], categories[index])
     ranked_list.append(return_vals)
 
@@ -139,7 +174,7 @@ def get_ranked_list(query, num_of_results = 20):
 # games
 def output(q, ages, len, player):
 
-  # filter(age = ages, length = len, players = player)
+  filter(age = ages, length = len, players = player)
 
   query = vectorize(q, good_types, tokenize)
   ranked_list = get_ranked_list(query)
