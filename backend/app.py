@@ -35,7 +35,7 @@ def home():
         query2 = request.form.get("ages")
         query3 = request.form.get("length")
         query4 = request.form.get("player_num")
-        return render_template('catalogue.html', tables=((query)))
+        return render_template('catalogue.html', tables=((query, query2, query3, query4)))
     return render_template('base.html', title="sample html")
 
 

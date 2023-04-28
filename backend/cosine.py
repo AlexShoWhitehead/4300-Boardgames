@@ -120,17 +120,16 @@ images = game_data['image_data'].astype('string').to_numpy()
 average_ratings = game_data['rating_average'].astype('string').to_numpy()
 categories = game_data['rating_average'].astype('string').to_numpy()
 
-def make_matrix(query):
+def make_matrix(query, a=1):
   sim_scores = np.empty(len(names))
   for i in range(len(description_vectors)):
-    sim_scores[i] = cosine_sim(query, description_vectors[i])
+    sim_scores[i] = a * cosine_sim(query, description_vectors[i])
   return sim_scores
 
-def rocchio(initQuery, relevant, irrelevant,a=.3, b=.3, c=.8, clip = True):
+def rocchio(initQuery, relevant, irrelevant, a=.3, b=.3, c=.8, clip = True):
   
-  sim_scores = make_matrix(initQuery)
+  sim_scores = make_matrix(initQuery, a)
   sorted_index = np.argsort(sim_scores)
-
 
   if not len(relevant) == 0:
     secondPre = b * (1 / len(relevant))
@@ -174,7 +173,7 @@ def get_ranked_list(query, relevant_in, irrelevant_in, num_of_results = 20):
 # games
 def output(q, ages, len, player):
 
-  filter(age = ages, length = len, players = player)
+  filter(ages, len, player)
 
   query = vectorize(q, good_types, tokenize)
   ranked_list = get_ranked_list(query)
