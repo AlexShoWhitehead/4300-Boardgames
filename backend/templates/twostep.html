@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> Search </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+        <link rel="stylesheet" type="text/css" href="../static/style.css"> 
+        <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Montserrat&family=Open+Sans:wght@500&display=swap" rel="stylesheet">         
+    </head>
+
+    <body>
+        <h1>
+            Refine your search results by reviewing these games:
+        </h1>
+        <label for="file">Refining progress:</label>
+        <progress id="file" value="0" max="100"> 0% </progress>
+
+        <!--Pull top three games-->
+        <div class = search-tile>
+            
+        </div>
+
+    </body>

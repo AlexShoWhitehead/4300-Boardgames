@@ -10,7 +10,16 @@
     justify-content: start;
     align-items: center;
     flex-direction: column;
+    background-color: rgb(112, 225, 149);
 }
+
+.main{
+   padding:30px;
+   background-color: white;
+   border-radius: 10px;
+
+}
+
 
 .elmt{
     display: flex;
@@ -49,7 +58,7 @@
     color: rgb(85, 41, 41);
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    border:2px solid rgb(77, 0, 0);
+    border:2px solid rgb(0, 45, 77);
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
