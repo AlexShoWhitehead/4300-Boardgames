@@ -77,4 +77,4 @@ def home():
     return render_template('base.html', title="sample html")
 
 
-app.run(debug=True)
+# app.run(debug=True)
