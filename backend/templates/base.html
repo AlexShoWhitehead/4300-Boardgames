@@ -48,15 +48,29 @@
                     <label for="length">Game Length:</label> 
                     <select name="length" id="length-id">  
                         <option value="">Select Game Length</option>  
-                        <option value="30u">30 min and under</option>  
-                        <option value="30-60">30-60 minutes</option>  
-                        <option value="60-120">60-120 minutes</option>
-                        <option value="120">120 minutes and over</option>  
+                        <option value="30">30 min and under</option>  
+                        <option value="60">30-60 minutes</option>  
+                        <option value="120">60-120 minutes</option>
+                        <option value="1000">120 minutes and over</option>  
                     </select>
                 </div>
                 <div class="elmt">
                     <label for="player-num">Enter number of players:</label> 
-                    <input name = "player-num" type="number" min="1" max="12" value="1" class="slider" id="range-id">
+                    <select class = "slider" name="player_num" id="range-id">
+                        <option value="">Select Number of Players</option>  
+                        <option value="1">1</option>  
+                        <option value="2">2</option>  
+                        <option value="3">3</option>
+                        <option value="4">4</option>  
+                        <option value="5">5</option>  
+                        <option value="6">6</option>
+                        <option value="7">7</option>  
+                        <option value="8">8</option>  
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
                 </div>
                 <input class = "subm" type="submit" name="submit" value="Generate Games!" onclick="filterText()" />
             </form>
