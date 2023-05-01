@@ -12,13 +12,14 @@
     <body>
         <div align ="center">
             <table>
-                <h1>
-                    Here are your games!
-                </h1>
+                <h1>Here are your games!</h1>
                 <h1>
                 <!--Displaying the converted table-->
-                     {% for table in tables %}
-                    <h2 class = "ital">{{table}}</h2>
+                    {% for table in tables %}
+                    <h2 class = "ital">{{table.0}}</h2>
+                    <p class = "ital">{{table.1}}</p>
+                    <p class = "ital">{{table.2}}</p>
+                    <img src = "{{table.3}}">
                     {% endfor %}                           
                 </h1> 
             </table>

@@ -24,13 +24,7 @@ CREATE TABLE boardgames (
   comments text
 );
 INSERT INTO boardgames VALUES 
-(174430,'Gloomhaven','2017',1,4,120,14,'57372','8.62868','3','3,86','90020',"['Action Queue']",'Strategy Games, Thematic Games',"blah","blah","{'description':'hi'}","{'thumbnail': 'https:::cf.geekdo-images.com:tHVtPzu82mBpeQbbZkV6EA__thumb:img:AghH1bAEhqzvyRcP3cy5G-rz0So=:fit-in:200x150:filters:strip_icc():pic3469216.jpg', 'image': 'https:::cf.geekdo-images.com:tHVtPzu82mBpeQbbZkV6EA__original:img:3ffdJj5Pz6HQrg09Kh8ecTen-TY=:0x0:filters:format(jpeg):pic3469216.jpg'}", "blah", "oof");
-INSERT INTO boardgames VALUES 
-(174430,'Gloomhaven','2017',1,4,120,14,'57372','8.62868','3','3,86','90020',"['Action Queue']",'Strategy Games, Thematic Games',"blah","blah","{'description':'hi'}","blah", "blah", "oof");
-INSERT INTO boardgames VALUES 
-(174430,'Gloomhaven','2017',1,4,120,14,'57372','8.62868','3','3,86','90020',"['Action Queue']",'Strategy Games, Thematic Games',"blah","blah","{'description':'hi'}","blah", "blah", "oof");
-INSERT INTO boardgames VALUES 
-(174430,'Gloomhaven','2017',1,4,120,14,'57372','8.62868','3','3,86','90020',"['Action Queue']",'Strategy Games, Thematic Games',"blah","blah","{'description':'hi'}","blah", "blah", "oof");
+(174430,'Gloomhaven','2017',1,4,120,14,'57372','8.62868','3','3,86','90020',"['Action Queue']",'Strategy Games, Thematic Games',"blah","blah","{'description':'hi'}",{'image':'https://www.cs.cornell.edu/courses/cs5152/2022sp/staff/photos/walker.png'}, "blah", "oof");
 INSERT INTO boardgames VALUES 
 (174430,'Gloomhaven','2017',1,4,120,14,'57372','8.62868','3','3,86','90020',"['Action Queue']",'Strategy Games, Thematic Games',"blah","blah","{'description':'hi'}","blah", "blah", "oof");
 INSERT INTO boardgames VALUES 
