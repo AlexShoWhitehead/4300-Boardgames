@@ -10,7 +10,7 @@
     justify-content: start;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(112, 225, 149);
+    background-color: rgb(20, 150, 133);
 }
 
 .main{
@@ -20,6 +20,10 @@
 
 }
 
+header img{
+    height: 100%;
+    width: 100%;
+}
 
 .elmt{
     display: flex;
