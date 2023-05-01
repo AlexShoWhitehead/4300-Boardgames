@@ -9,9 +9,19 @@
 <body>
     <div class="full-body-container">
         <div class="top-text">
+            <div onclick = "sendFocus()">
+                <form action = "{{url_for('home')}}" method="post">
+                    <input id = "filter-link" type="submit" value="link" onclick="twoStep()" name = "twostep"/>
+                </form>
+            </div>
+        <div class = "main">
+
+        
+
             <div class="header">
                 <h1>Find A Boardgame</h1>
             </div>
+            
             <form action = "{{url_for('home')}}" method="post">
                 <div class="input-box" onclick="sendFocus()">
                     <input placeholder="Describe the kind of game you want to play" id="filter-text-val" name = "q">
@@ -50,8 +60,15 @@
                 </div>
                 <input class = "subm" type="submit" name="submit" value="Generate Games!" onclick="filterText()" />
             </form>
-        </div>
+        
+        
+        
+        
         <div id="answer-box"></div>
+
+    </div>
+    </div>
+    
     </div>
 
     <script>
@@ -65,6 +82,12 @@
 
         function sendFocus(){
             document.getElementById('filter-text-val').focus()
+        }
+
+        function twoStep(){
+            document.getElementById('filter-link').focus()
+            console.log("")
+            fetch("/twostep")
         }
 
         function filterText(){
