@@ -13,7 +13,7 @@ os.environ['ROOT_PATH'] = os.path.abspath(os.path.join("..",os.curdir))
 # Don't worry about the deployment credentials, those are fixed
 # You can use a different DB name if you want to
 MYSQL_USER = "root"
-MYSQL_USER_PASSWORD = "21Alshow!"
+MYSQL_USER_PASSWORD = ""
 MYSQL_PORT = 3306
 MYSQL_DATABASE = "master_database"
 
@@ -61,6 +61,11 @@ def sql_search(age, length, players):
     data = mysql_engine.query_selector(query_sql)
     return json.dumps([dict(zip(keys,i)) for i in data])
 
+query = ''
+query2 = ''
+query3 = ''
+query4 = ''
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
@@ -69,12 +74,12 @@ def home():
         query2 = request.form.get("ages")
         query3 = request.form.get("length")
         query4 = request.form.get("player_num")
-        sum = request.form.get("sum")
+        sum = request.form.get("tunnel")
         if secondQuery != None:
-            return render_template('catalogue.html', tables = sum)
+            return render_template('catalogue.html', tables = (sum))
         else:
             return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4))))
     return render_template('base.html', title="sample html")
 
 
-# app.run(debug=True)
+app.run(debug=True)

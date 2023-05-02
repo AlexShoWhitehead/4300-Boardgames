@@ -2,57 +2,11 @@ import pandas as pd
 import numpy as np
 import math
 import re
-import ast
-import csv
 
-def make_dataframe(csv_path, delimiter):
-    rows = []
-    with open(csv_path, newline='', encoding='UTF-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter=delimiter, quotechar='"', quoting=csv.QUOTE_ALL)
-        for row in reader:
-            for col in range(len(row)):
-                row[col].replace("â€™", "'")
-            rows.append(row)
-        csvfile.close()
 
-    df = pd.DataFrame(rows)
-    df.columns = df.iloc[0]
-    df = df[1:]
 
-    return df
 
-game_data =  make_dataframe('master_database_cleaned.csv', ';')
 
-#the below code parses the 'qualitative_data' column and makes a new column called 'description'
-game_data['description'] = game_data['qualitative_data']
-
-for i in range(1, len(game_data['id'])):
-  if "description" in game_data['description'][i]:
-    desc_index = game_data['description'][i].index('description')
-    partial_string = game_data['description'][i][desc_index+15:]
-    game_data['description'][i] = partial_string[:partial_string.index("families")-4]
-  else:
-    game_data['description'][i] = ""
-
-#this chunk just takes the df columns and makes them np arrays
-names = game_data['name'].astype('string').to_numpy()
-descriptions = game_data['description'].astype('string').to_numpy()
-comments = game_data['comments'].astype('string').to_numpy()
-images = game_data['image_data'].astype('string').to_numpy()
-average_ratings = game_data['rating_average'].astype('string').to_numpy()
-categories = game_data['categories'].astype('string').to_numpy()
-images = game_data['image_data'].astype('string').to_numpy()
-
-def tokenize(text):
-    return re.findall(r"[a-zA-z]+", text.lower())
-
-#this part builds doc_tokens which is used in the search
-doc_tokens = []
-
-for i in range(len(descriptions)):
-  tokens = tokenize(descriptions[i])
-  tokens += tokenize(comments[i])
-  doc_tokens.append({'id' : i, 'toks' : tokens})
 
 def build_inverted_index(msgs):
     d  ={}

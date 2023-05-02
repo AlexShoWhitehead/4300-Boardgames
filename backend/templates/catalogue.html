@@ -9,20 +9,21 @@
         <link rel="stylesheet" type="text/css" href="../static/style.css"> 
         <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Montserrat&family=Open+Sans:wght@500&display=swap" rel="stylesheet">         
     </head>
-    <body>
-        <div align ="center">
-            <table>
-                <h1>Here are your games!</h1>
-                <h1>
-                <!--Displaying the converted table-->
-                    {% for table in tables %}
-                    <h2 class = "ital">{{table.0}}</h2>
-                    <p class = "ital">{{table.1}}</p>
-                    <p class = "ital">{{table.2}}</p>
-                    <img src = "{{table.3}}">
-                    {% endfor %}                           
-                </h1> 
-            </table>
+    <body style = "background-image: url('https://img.freepik.com/free-vector/geometric-groovy-pattern_23-2148854270.jpg?size=626&ext=jpg&ga=GA1.1.2056273377.1682960503&semt=ais');">
+        <div class = "main">
+
+        <div class ="center">
+            <h1>Here are your games!</h1>
+            <!--Displaying the converted table-->
+        <div class = "game-list">
+            {% for table in tables %}
+            <div class = "tile">
+                <h2 class = "ital">{{table}}</h2>
+            </div>
+            {% endfor %}   
+        </div>                        
         </div>
+    </div>
+
     </body>
 </html>

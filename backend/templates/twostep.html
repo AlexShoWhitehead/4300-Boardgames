@@ -9,29 +9,39 @@
         <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Montserrat&family=Open+Sans:wght@500&display=swap" rel="stylesheet">         
     </head>
 
-    <body>
-        <h1>
+    <body style = "background-image: url('https://img.freepik.com/free-vector/geometric-groovy-pattern_23-2148854270.jpg?size=626&ext=jpg&ga=GA1.1.2056273377.1682960503&semt=ais');">
+        
+        <div class = "main two">
+        <h5>
             Refine your search results by reviewing these games:
-        </h1>
-        <label for="file">Refining progress:</label>
-        <progress id="file" value="0" max="100"> 0% </progress>
+        </h5>
+
 
         <!--Pull top three games-->
         <div class = search-tile>
-            <form action = "{{url_for('home')}}" method="post">
+            
             {% for table in tables %}
                 <h2 class = "ital">{{table.0}}</h2>
                 <p class = "ital">{{table.1}}</p>
                 <p class = "ital">{{table.2}}</p>
+                
+                <form action = "{{url_for('home')}}" method="post">
+                <input class = 'hidden' value = '{{tables}}' name = 'tunnel' id = 'tunnel'>
+                <div class="button-group" role="group" aria-labelledby="rel">
+                <div id="rel">How Relevant Is This Game To Your Search?</div>
+
                 <label for="radio1">Relevant:</label>
-                <input type = "radio" id="rad
-                io1" name="relevant" value="Relevant" >
+                <input type = "radio" id="radio1" name="rele" value="Relevant" >
                 <label for="radio2">Irrelevant:</label>
-                <input type = "radio" id="radio2" name="irrelevant" value="Irrelevant">
+                <input type = "radio" id="radio2" name="rele" value="Irrelevant">
+            </div>
+
             {% endfor %}     
             <input class = "subm" type="submit" id = "filter-link" name="relevant" value="Submit" onclick="filterText()" />    
             </form>                  
         </div>
+
+    </div>
 
     </body>
 
