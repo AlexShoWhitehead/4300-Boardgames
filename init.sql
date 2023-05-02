@@ -21,7 +21,7 @@ CREATE TABLE boardgames (
   qualitative_data text,
   image_data text,
   users_commented text,
-  comments VARCHAR(MAX)
+  comments text
 );
 INSERT INTO boardgames VALUES 
 (174430,'Gloomhaven','2017',1,4,120,14,'57372','8.62868','3','3,86','90020',"['Action Queue']",'Strategy Games, Thematic Games',"blah","blah","{'description':'hi'}",'https://www.cs.cornell.edu/courses/cs5152/2022sp/staff/photos/walker.png', "blah", "oof");

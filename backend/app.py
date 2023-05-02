@@ -13,7 +13,7 @@ os.environ['ROOT_PATH'] = os.path.abspath(os.path.join("..",os.curdir))
 # Don't worry about the deployment credentials, those are fixed
 # You can use a different DB name if you want to
 MYSQL_USER = "root"
-MYSQL_USER_PASSWORD = ""
+MYSQL_USER_PASSWORD = "21Alshow!"
 MYSQL_PORT = 3306
 MYSQL_DATABASE = "master_database"
 
@@ -82,4 +82,4 @@ def home():
     return render_template('base.html', title="sample html")
 
 
-app.run(debug=True)
+# app.run(debug=True)
