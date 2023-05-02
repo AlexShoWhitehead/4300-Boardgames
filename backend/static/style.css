@@ -8,16 +8,29 @@
     height:100%;
     display: flex;
     justify-content: start;
-    align-items: center;
     flex-direction: column;
     background-color: rgb(20, 150, 133);
 }
 
+.game-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tile{
+    background-color: rgb(235, 235, 235);
+}
+
 .main{
    padding:30px;
-   background-color: white;
+   background-color: rgb(255, 255, 255);
    border-radius: 10px;
-
+   display: flex;
+   flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top:120px;
 }
 
 header img{
@@ -26,10 +39,9 @@ header img{
 }
 
 .elmt{
+    margin-top: 10px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
+    font-size: 20px;
     font-family: 'Open Sans', sans-serif;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -40,7 +52,10 @@ header img{
     padding:2px;
 }
 
-
+select{
+    padding-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+}
 
 .elmt select:hover{
     cursor: pointer;
@@ -52,17 +67,17 @@ header img{
 }
 
 .subm{
+    font-family: 'Open Sans', sans-serif;
     display: flex;
     font-size: 20px;
     margin-top: 10px;
-    border: none;
     padding: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    color: rgb(85, 41, 41);
+    color: rgb(6, 82, 133);
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    border:2px solid rgb(0, 45, 77);
+    border: 1px solid rgb(6, 82, 133);
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
@@ -70,34 +85,43 @@ header img{
     .subm:hover {
     cursor:pointer;
     color:rgb(255, 255, 255);
-    background-color: rgb(85, 41, 41);
+    background-color:rgb(6, 82, 133);
     border:2px solid rgb(255, 255, 255);
     }
 
 h1{
-    font-family: 'Open Sans';
-    font-size: 50px;
+
+    display: flex;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    color:rgb(6, 82, 133);
+    margin-bottom: 0;
+    margin-right: 3px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 80px;
     margin-top: 30px;
     text-align: center;
 }
 
-.header{
+h5{
+
     display: flex;
     align-items: center;
-    font-size: 48px;
     font-family: 'Open Sans', sans-serif;
-}
-
-.header h1{
-    color:rgb(83, 21, 21);
+    color:rgb(6, 82, 133);
     margin-bottom: 0;
     margin-right: 3px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 40px;
+    margin-top: 30px;
+    text-align: center;
 }
 
+
 .input-box{
-    border-radius: 10px;
-    border-radius: 10px;
-    border:1px solid black;
+
+    background-color:rgb(255, 255, 255);
+    border:.3px solid rgba(0, 0, 0, 0);
     display: flex;
     align-items: center;
     margin-top: 10px;
@@ -105,10 +129,7 @@ h1{
     width: 600px;
 }
 
-.input-box img{
-    height: 20px;
-    width:20px;
-}
+
 
 .top-text{
     display: flex;
@@ -117,11 +138,16 @@ h1{
 }
 
 .input-box input{
+    font-weight: lighter;
+    background-color:rgb(255, 255, 255);
+    font-family: 'Open Sans', sans-serif;
     width: 100%;
-    margin-left: 10px;
+    margin-left: 0px;
     font-size: 16px;
     border: none;
+    border-bottom: solid rgb(15, 69, 102);
     outline: 0;
+    padding: 5px;
 }
 
 #answer-box{

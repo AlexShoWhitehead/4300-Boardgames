@@ -9,19 +9,29 @@
 <body>
 
     
-    <div class="full-body-container">
-        <div class = "main">
-            <div class="header">
-                <h1>Find A Boardgame</h1>
+    <div class="full-body-container" style="background-image:url('https://img.freepik.com/free-vector/geometric-groovy-pattern_23-2148854270.jpg?size=626&ext=jpg&ga=GA1.1.2056273377.1682960503&semt=ais');">
+        <div class="top-text">
+            <div onclick = "sendFocus()">
+                <form action = "{{url_for('home')}}" method="post">
+                    <input id = "filter-link" type="submit" value="link" onclick="twoStep()" name = "twostep"/>
+                </form>
             </div>
+
+            
+        <div class = "main">
+
+            <div>
+            <h1>Find A Boardgame</h1>
+        </div>
+            
             
             <form action = "{{url_for('home')}}" method="post">
                 <div class="input-box" onclick="sendFocus()">
                     <input placeholder="Describe the kind of game you want to play" id="filter-text-val" name = "q">
                 </div>
 
-                <div class = "elmt" onclick="sendFocus()">
-                    <label for="ages">Age Range:</label> 
+                <div class = "elmt">
+                    <label for="ages">Age Range </label> 
                     <select name="ages" id="age-id">
                         <option value="">Select Age Range</option>  
                         <option value="2">2+</option>  
@@ -38,7 +48,7 @@
                     </select>
                 </div>
                 <div class = "elmt">
-                    <label for="length">Game Length:</label> 
+                    <label for="length">Game Length </label> 
                     <select name="length" id="length-id">  
                         <option value="">Select Game Length</option>  
                         <option value="30">30 min and under</option>  
@@ -48,7 +58,7 @@
                     </select>
                 </div>
                 <div class="elmt">
-                    <label for="player-num">Enter number of players:</label> 
+                    <label for="player-num">Enter number of players </label> 
                     <select class = "slider" name="player_num" id="range-id">
                         <option value="">Select Number of Players</option>  
                         <option value="1">1</option>  
