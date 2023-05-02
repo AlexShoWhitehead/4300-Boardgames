@@ -14,22 +14,22 @@
             Refine your search results by reviewing these games:
         </h1>
         <label for="file">Refining progress:</label>
-        <progress id="file" value="0" max="100"> 0% </progress>
+        <progress id="file" value="50" max="100"> 50% </progress>
 
         <!--Pull top three games-->
         <div class = search-tile>
             <form action = "{{url_for('home')}}" method="post">
-            {% for table in tables %}
-                <h2 class = "ital">{{table.0}}</h2>
-                <p class = "ital">{{table.1}}</p>
-                <p class = "ital">{{table.2}}</p>
-                <label for="radio1">Relevant:</label>
-                <input type = "radio" id="rad
-                io1" name="relevant" value="Relevant" >
-                <label for="radio2">Irrelevant:</label>
-                <input type = "radio" id="radio2" name="irrelevant" value="Irrelevant">
-            {% endfor %}     
-            <input class = "subm" type="submit" id = "filter-link" name="relevant" value="Submit" onclick="filterText()" />    
+                <input id = "tunnel" class = "hidden" name = "tunnel" value = {{tables}}>
+                {% for table in tables %}
+                    <h2 class = "ital">{{table.0}}</h2>
+                    <p class = "ital">{{table.1}}</p>
+                    <p class = "ital">{{table.2}}</p>
+                    <label for="radio1">Relevant:</label>
+                    <input type = "radio" id="radio1" name="relevant" value="Relevant" >
+                    <label for="radio2">Irrelevant:</label>
+                    <input type = "radio" id="radio2" name="irrelevant" value="Irrelevant">
+                {% endfor %}     
+                <input class = "subm" type="submit" id = "filter-link" name="relevant" value="Submit" onclick="twoStep()" />    
             </form>                  
         </div>
 
@@ -37,7 +37,7 @@
 
     <script>
         function twoStep(){
-            document.getElementById('filter-link').focus()
+            document.getElementById('tunnel').focus()
             console.log("")
             fetch("/catalogue")
         }

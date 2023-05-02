@@ -91,12 +91,6 @@
             document.getElementById('filter-text-val').focus()
         }
 
-        function twoStep(){
-            document.getElementById('filter-link').focus()
-            console.log("")
-            fetch("/twostep")
-        }
-
         function filterText(){
             document.getElementById("answer-box").innerHTML = ""
             console.log(document.getElementById("filter-text-val").value)

@@ -69,7 +69,7 @@ def home():
         query2 = request.form.get("ages")
         query3 = request.form.get("length")
         query4 = request.form.get("player_num")
-        sum = request.form.get("sum")
+        sum = request.form.get("tunnel")
         if secondQuery != None:
             return render_template('catalogue.html', tables = sum)
         else:
@@ -77,4 +77,4 @@ def home():
     return render_template('base.html', title="sample html")
 
 
-# app.run(debug=True)
+app.run(debug=True)
