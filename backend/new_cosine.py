@@ -94,9 +94,8 @@ def get_results(results, num_results = 20):
   for i in range(num_results):
     index = results[i][1]
     sim_score = round(results[i][0], 3)
-    ranked_list.append(names[index] + " Sim score: " + str(sim_score) + " Average Ratings: " + average_ratings[index] +
-                       " Categories : " + categories[index] + " Description : " + descriptions[index]
-                       + " image url: " + images[index][images[index].index("'image':")+10 : len(images[index])-2])
+    ranked_list.append([names[index], str(sim_score), average_ratings[index], categories[index],
+                        descriptions[index], images[index][images[index].index("'image':")+10 : len(images[index])-2]])
 
   return ranked_list
 
