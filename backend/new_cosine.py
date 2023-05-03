@@ -5,54 +5,8 @@ import re
 import ast
 import csv
 
-def make_dataframe(csv_path, delimiter):
-    rows = []
-    with open(csv_path, newline='', encoding='UTF-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter=delimiter, quotechar='"', quoting=csv.QUOTE_ALL)
-        for row in reader:
-            for col in range(len(row)):
-                row[col].replace("â€™", "'")
-            rows.append(row)
-        csvfile.close()
-
-    df = pd.DataFrame(rows)
-    df.columns = df.iloc[0]
-    df = df[1:]
-
-    return df
-
-game_data =  make_dataframe('master_database_cleaned.csv', ';')
-
-#the below code parses the 'qualitative_data' column and makes a new column called 'description'
-game_data['description'] = game_data['qualitative_data']
-
-for i in range(1, len(game_data['id'])):
-  if "description" in game_data['description'][i]:
-    desc_index = game_data['description'][i].index('description')
-    partial_string = game_data['description'][i][desc_index+15:]
-    game_data['description'][i] = partial_string[:partial_string.index("families")-4]
-  else:
-    game_data['description'][i] = ""
-
-#this chunk just takes the df columns and makes them np arrays
-names = game_data['name'].astype('string').to_numpy()
-descriptions = game_data['description'].astype('string').to_numpy()
-comments = game_data['comments'].astype('string').to_numpy()
-images = game_data['image_data'].astype('string').to_numpy()
-average_ratings = game_data['rating_average'].astype('string').to_numpy()
-categories = game_data['categories'].astype('string').to_numpy()
-images = game_data['image_data'].astype('string').to_numpy()
-
 def tokenize(text):
     return re.findall(r"[a-zA-z]+", text.lower())
-
-#this part builds doc_tokens which is used in the search
-doc_tokens = []
-
-for i in range(len(descriptions)):
-  tokens = tokenize(descriptions[i])
-  tokens += tokenize(comments[i])
-  doc_tokens.append({'id' : i, 'toks' : tokens})
 
 def build_inverted_index(msgs):
     d  ={}
@@ -135,29 +89,55 @@ def index_search(query, index, idf, doc_norms, tokenizer, score_func=accumulate_
 
     return sorted(results, reverse=True)
 
-def get_results(results, num_results = 20):
+def get_results(results, names, average_ratings, categories, descriptions, images, num_results = 20):
   ranked_list = []
   for i in range(num_results):
     index = results[i][1]
     sim_score = round(results[i][0], 3)
-    ranked_list.append(names[index] + " Sim score: " + str(sim_score) + " Average Ratings: " + average_ratings[index] +
-                       " Categories : " + categories[index] + " Description : " + descriptions[index]
-                       + " image url: " + images[index][images[index].index("'image':")+10 : len(images[index])-2])
+    ranked_list.append([names[index], str(sim_score), average_ratings[index], categories[index], descriptions[index], images[index][images[index].index("'image':")+10 : len(images[index])-2]])
 
   return ranked_list
 
+def output(query, database):
+    game_data = pd.read_json(str(json.loads(database)[0]))
+    #the below code parses the 'qualitative_data' column and makes a new column called 'description'
+    game_data['description'] = game_data['qualitative_data']
 
-#these three values can all be precomputed, they don't rely on the query
-inv_idx = build_inverted_index(doc_tokens)
-idf = compute_idf(inv_idx, len(doc_tokens))
-doc_norms = compute_doc_norms(inv_idx, idf, len(doc_tokens))
+    for i in range(1, len(game_data['id'])):
+      if "description" in game_data['description'][i]:
+        desc_index = game_data['description'][i].index('description')
+        partial_string = game_data['description'][i][desc_index+15:]
+        game_data['description'][i] = partial_string[:partial_string.index("families")-4]
+      else:
+        game_data['description'][i] = ""
 
-query = input("Please enter a query:\n")
+    #this chunk just takes the df columns and makes them np arrays
+    names = game_data['name'].astype('string').to_numpy()
+    descriptions = game_data['description'].astype('string').to_numpy()
+    comments = game_data['comments'].astype('string').to_numpy()
+    images = game_data['image_data'].astype('string').to_numpy()
+    average_ratings = game_data['rating_average'].astype('string').to_numpy()
+    categories = game_data['categories'].astype('string').to_numpy()
+    images = game_data['image_data'].astype('string').to_numpy()
 
-#this gets the results (the variable called results is NOT what we want to display)
-query_word_counts = get_word_counts(query)
-dot_scores = accumulate_dot_scores(query_word_counts, inv_idx, idf)
-results = index_search(query, inv_idx, idf, doc_norms, tokenize, score_func=accumulate_dot_scores)
+    doc_tokens = []
 
-#r_list is a list containing everyting we want
-r_list = get_results(results)
+    for i in range(len(descriptions)):
+      tokens = tokenize(descriptions[i])
+      tokens += tokenize(comments[i])
+      doc_tokens.append({'id' : i, 'toks' : tokens})
+
+    #these three values can all be precomputed, they don't rely on the query
+    inv_idx = build_inverted_index(doc_tokens)
+    idf = compute_idf(inv_idx, len(doc_tokens))
+    doc_norms = compute_doc_norms(inv_idx, idf, len(doc_tokens))
+
+    #this gets the results (the variable called results is NOT what we want to display)
+    query_word_counts = get_word_counts(query)
+    dot_scores = accumulate_dot_scores(query_word_counts, inv_idx, idf)
+    results = index_search(query, inv_idx, idf, doc_norms, tokenize, score_func=accumulate_dot_scores)
+
+    #r_list is a list containing everyting we want
+    r_list = get_results(results, names, average_ratings, categories, descriptions, images)
+
+    return r_list
