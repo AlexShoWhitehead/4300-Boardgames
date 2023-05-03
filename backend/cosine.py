@@ -2,8 +2,23 @@ import pandas as pd
 import json
 import numpy as np
 import re
-import ast
 import csv
+
+def make_dataframe(csv_path, delimiter):
+    rows = []
+    with open(csv_path, newline='', encoding='UTF-8') as csvfile:
+        reader = csv.reader(csvfile, delimiter=delimiter, quotechar='"', quoting=csv.QUOTE_ALL)
+        for row in reader:
+            for col in range(len(row)):
+                row[col].replace("â€™", "'")
+            rows.append(row)
+        csvfile.close()
+
+    df = pd.DataFrame(rows)
+    df.columns = df.iloc[0]
+    df = df[1:]
+
+    return df
 
 def tokenize(text):
     """Returns a list of words that make up the text.
@@ -54,7 +69,8 @@ def get_ranked_list(query, names, description_vectors, descriptions, comments, i
 # finally we should be able to take in the query and return the most similar
 # games
 def output(query, database):
-  game_data = json.loads(database)
+  game_data = pd.DataFrame.from_dict(json.loads(database)[0])
+  return game_data
   word_count = {}
   descriptions = []
   comments = []

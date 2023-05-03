@@ -18,7 +18,7 @@ def build_inverted_index(msgs):
                 d[word] = [(i, msgs[i]['toks'].count(word))]
     return d
 
-def compute_idf(inv_idx, n_docs, min_df=10, max_df_ratio=0.95):
+def compute_idf(inv_idx, n_docs, min_df=1, max_df_ratio=1):
     idf_dict = {}
 
     for key in inv_idx.keys():
@@ -71,6 +71,7 @@ def index_search(query, index, idf, doc_norms, tokenizer, score_func=accumulate_
     results = []
     tokenized_query = tokenizer(query.lower())
     query_words = get_word_counts(query)
+    print('words', query_words)
 
     dot_product_scores = score_func(query_words, index, idf)
 
@@ -85,10 +86,43 @@ def index_search(query, index, idf, doc_norms, tokenizer, score_func=accumulate_
         numerator = dot_product_scores[doc_id]
         cos_score = numerator / np.dot(q_norm, norm_d)
         results.append( (cos_score, doc_id) )
-
+    
     return sorted(results, reverse=True)
 
-def get_results(results, names, average_ratings, categories, descriptions, images, num_results = 20):
+def make_matrix(query, results):
+  sim_scores = np.empty(len(results))
+  for i in range(len(results)):
+    sim_scores[i] = results[i]
+  return sim_scores
+
+def rocchio(initQuery, sim_scores, relevant, irrelevant,a=.3, b=.3, c=.8, clip = True):
+
+  sorted_index = np.argsort(sim_scores)
+
+  if not len(relevant) == 0:
+    secondPre = b * (1 / len(relevant))
+    secondSum = sorted_index[relevant[0]]
+    for d in range(len(relevant) - 1):
+      secondSum = secondSum + sorted_index[relevant[d + 1]]
+      secondSum = secondPre * secondSum
+      initQuery = initQuery + secondSum
+
+  if not len(irrelevant) == 0:
+    thirdPre = c * (1 / len(irrelevant))
+    thirdSum =sorted_index[irrelevant[0]]
+    for i in range(len(irrelevant) - 1):
+      thirdSum = thirdSum + sorted_index[irrelevant[i + 1]]
+      thirdSum = thirdPre * thirdSum
+      initQuery = initQuery - thirdSum
+
+  if(clip):
+    for j in range(len(initQuery)):
+      if initQuery[j] < 0:
+        initQuery[j] = 0
+
+  return initQuery
+
+def get_results(results, names, average_ratings, categories, descriptions, images, num_results = 2):
   ranked_list = []
   for i in range(num_results):
     index = results[i][1]
@@ -98,7 +132,7 @@ def get_results(results, names, average_ratings, categories, descriptions, image
   return ranked_list
 
 def output(query, database):
-    game_data = pd.read_json(str(json.loads(database)[0]))
+    game_data = pd.DataFrame((json.loads(database)[0]), index=[0])
     #the below code parses the 'qualitative_data' column and makes a new column called 'description'
     game_data['description'] = game_data['qualitative_data']
 
@@ -120,7 +154,7 @@ def output(query, database):
     images = game_data['image_data'].astype('string').to_numpy()
 
     doc_tokens = []
-
+    
     for i in range(len(descriptions)):
       tokens = tokenize(descriptions[i])
       tokens += tokenize(comments[i])
@@ -132,11 +166,14 @@ def output(query, database):
     doc_norms = compute_doc_norms(inv_idx, idf, len(doc_tokens))
 
     #this gets the results (the variable called results is NOT what we want to display)
-    query_word_counts = get_word_counts(query)
-    dot_scores = accumulate_dot_scores(query_word_counts, inv_idx, idf)
+    # query_word_counts = get_word_counts(query)
+    # dot_scores = accumulate_dot_scores(query_word_counts, inv_idx, idf)
     results = index_search(query, inv_idx, idf, doc_norms, tokenize, score_func=accumulate_dot_scores)
 
+    sim_scores = make_matrix(query, results)
+    rocchios = rocchio(query, sim_scores, [], [])
+
     #r_list is a list containing everyting we want
-    r_list = get_results(results, names, average_ratings, categories, descriptions, images)
+    r_list = get_results(rocchios, names, average_ratings, categories, descriptions, images)
 
     return r_list

@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request
 from flask_cors import CORS
 from helpers.MySQLDatabaseHandler import MySQLDatabaseHandler
-from cosine import output
+from new_cosine import output
 
 # ROOT_PATH for linking with all your files. 
 # Feel free to use a config.py or settings.py with a global export variable
@@ -82,4 +82,4 @@ def home():
     return render_template('base.html', title="sample html")
 
 
-# app.run(debug=True)
+app.run(debug=True)
