@@ -1,9 +1,8 @@
 import pandas as pd
 import numpy as np
 import math
+import json
 import re
-import ast
-import csv
 
 def tokenize(text):
     return re.findall(r"[a-zA-z]+", text.lower())
