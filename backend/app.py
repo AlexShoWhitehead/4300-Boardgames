@@ -78,7 +78,7 @@ def home():
         if secondQuery != None:
             return render_template('catalogue.html', tables = (sum))
         else:
-            return render_template('twostep.html', tables=(output(query)))
+            return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4))))
     return render_template('base.html', title="sample html")
 
 
