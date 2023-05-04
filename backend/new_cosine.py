@@ -81,7 +81,7 @@ def get_results(results, names, average_ratings, categories, descriptions, image
 
   return ranked_list    
 
-def output(query, database, invind, myidf):
+def output(query, database, invind, myidf, norms):
     game_data = database
     
     names = game_data['name'].astype('string').to_numpy()
@@ -104,7 +104,7 @@ def output(query, database, invind, myidf):
     #these three values can all be precomputed, they don't rely on the query
     inv_idx = invind
     idf = myidf
-    doc_norms = compute_doc_norms(inv_idx, idf, len(doc_tokens))
+    doc_norms = norms
     #this gets the results (the variable called results is NOT what we want to display)
     # query_word_counts = get_word_counts(query)
     # dot_scores = accumulate_dot_scores(query_word_counts, inv_idx, idf)
