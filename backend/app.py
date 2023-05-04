@@ -14,19 +14,6 @@ import numpy as np
 # Feel free to use a config.py or settings.py with a global export variable
 os.environ['ROOT_PATH'] = os.path.abspath(os.path.join("..",os.curdir))
 
-# These are the DB credentials for your OWN MySQL
-# Don't worry about the deployment credentials, those are fixed
-# You can use a different DB name if you want to
-MYSQL_USER = "root"
-MYSQL_USER_PASSWORD = "21Alshow!"
-MYSQL_PORT = 3306
-MYSQL_DATABASE = "master_database"
-
-mysql_engine = MySQLDatabaseHandler(MYSQL_USER,MYSQL_USER_PASSWORD,MYSQL_PORT,MYSQL_DATABASE)
-
-# Path to init.sql file. This file can be replaced with your own file for testing on localhost, but do NOT move the init.sql file
-mysql_engine.load_file_into_db()
-
 app = Flask(__name__)
 CORS(app)
 
@@ -53,11 +40,14 @@ def sql_search(age, length, players):
     game_data = make_dataframe('datasets/master_database.csv', ';')
     if(age != ''):
         game_data = game_data[game_data['min_age'].astype('int') <= int(age)]
+        game_data.drop('0')
     if(length != ''):
         game_data = game_data[game_data['play_time'].astype('int') <= int(length)]
+        game_data.drop('0')
     if(players != ''):
         game_data = game_data[game_data['min_players'].astype('int') <= int(players)]
         game_data = game_data[game_data['max_players'].astype('int') >= int(players)]
+        game_data.drop('0')
     return game_data
 
 query = ''
@@ -95,6 +85,7 @@ def rocchio(summation, relevant, irrelevant,a=1, b=.3, c=.7, clip = True):
 # pre_inv(build_inverted_index, make_dataframe, tokenize)
 invind = read_mat('datasets/inv_ind.txt')
 idf = read_mat('datasets/idf.txt')
+norms = read_mat('datasets/doc_norms.txt')
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -137,7 +128,7 @@ def home():
                         return render_template('catalogue.html', tables = rocchio(sum, relevant, irr))
             return render_template('catalogue.html', tables = sum)
         else:
-            return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4), invind, idf)))
+            return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4), invind, idf, norms)))
     return render_template('base.html', title="sample html")
 
-#app.run(debug=True)
+# app.run(debug=True)
