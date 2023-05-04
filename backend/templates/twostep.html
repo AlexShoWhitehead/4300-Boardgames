@@ -27,24 +27,25 @@
         <progress id="file" value="50" max="100"> 50% </progress>
 
         <!--Pull top three games-->
-            
+        <div class = "search-tile">
             {% for table in tables[:3] %}
-            <div class = "search-tile">
+            
                 <h2 class = "ital">{{table.0}}</h2>
                 <h3 class = "ital">Categories: {{table.3}}</h3>
                 <p class = "ital quersim">Query Similarity: {{table.1}}%</p>               
                 <form action = "{{url_for('home')}}" method="post">
                 <input class = 'hidden' value = '{{tables}}' name = 'tunnel' id = 'tunnel'>
                 <div class="button-group" role="group" aria-labelledby="rel">
-                <div id="rel">How Relevant Is This Game To Your Search?</div>
+                <div id="rel"><h4>How Relevant Is This Game To Your Search?</h4></div>
 
                 <label for="radio1">Relevant:</label>
                 <input type = "radio" id="radio1" name='rele{{table.0}}' value="Relevant" >
                 <label for="radio2">Irrelevant:</label>
                 <input type = "radio" id="radio2" name='rele{{table.0}}' value="Irrelevant">
-            </div>
+            
 
-            {% endfor %}     
+            {% endfor %}  
+        </div>   
             <input class = "subm" type="submit" id = "filter-link" name="relevant" value="Submit" onclick="filterText()" />    
             </form>                  
         </div>
