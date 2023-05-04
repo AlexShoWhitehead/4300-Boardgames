@@ -122,7 +122,7 @@ def rocchio(initQuery, sim_scores, relevant, irrelevant,a=.3, b=.3, c=.8, clip =
 
   return initQuery
 
-def get_results(results, names, average_ratings, categories, descriptions, images, num_results = 2):
+def get_results(results, names, average_ratings, categories, descriptions, images, min_players, play_time, min_age, num_results = 2):
   ranked_list = []
   if results == []:
       ranked_list.append("Sorry, we couldn't find any results :(")
@@ -130,7 +130,7 @@ def get_results(results, names, average_ratings, categories, descriptions, image
       for i in range(min(num_results, len(results))):
         index = results[i][1]
         sim_score = round(results[i][0], 3)
-        ranked_list.append([names[index], str(sim_score), average_ratings[index], categories[index], descriptions[index], images[index][images[index].index("'image':")+10 : len(images[index])-2]])
+        ranked_list.append([names[index], str(sim_score), average_ratings[index], categories[index], descriptions[index], images[index][images[index].index("'image':")+10 : len(images[index])-2]], min_players[index], play_time[index], min_age[index])
 
   return ranked_list
 
@@ -155,6 +155,9 @@ def output(query, database):
     average_ratings = game_data['rating_average'].astype('string').to_numpy()
     categories = game_data['categories'].astype('string').to_numpy()
     images = game_data['image_data'].astype('string').to_numpy()
+    min_players = game_data['min_players'].astype('string').to_numpy()
+    play_time = game_data['play_time'].astype('string').to_numpy()
+    min_age = game_data['min_age'].astype('string').to_numpy()
 
     doc_tokens = []
 
@@ -177,6 +180,6 @@ def output(query, database):
     rocchios = rocchio(query, sim_scores, [], [])
 
     #r_list is a list containing everyting we want
-    r_list = get_results(rocchios, names, average_ratings, categories, descriptions, images)
+    r_list = get_results(rocchios, names, average_ratings, categories, descriptions, images, min_players, play_time, min_age)
 
     return r_list
