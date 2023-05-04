@@ -12,6 +12,10 @@
     background-color: rgb(20, 150, 133);
 }
 
+.homelink input{
+    color: aqua;
+}
+
 img{
     height: 250px;
 }
@@ -20,13 +24,18 @@ img{
     position: absolute;
     top: 20px;
     right: 20px;
-    height: 50px;
-    width: 70px;
+    height: 35px;
+    width: 85px;
     font-family: 'Open Sans', sans-serif;
     color: rgb(6, 71, 78);
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    border: 1px solid rgb(48, 102, 99);
+    background-color: rgba(255, 255, 255, 0.749);
+    border-radius: 5px;
+    border: 1px none rgb(48, 102, 99);
+}
+
+.homelink:hover{
+    background-color: rgba(6, 71, 78, 0.416);
+    color: white;
 }
 
 .game-list{
@@ -34,12 +43,14 @@ img{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 80vw;
+    width: 75vw;
     margin-left: auto;
     margin-right: auto;
 }
 
 .title{
+    margin: 0px;
+    padding: 0px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
@@ -77,6 +88,7 @@ img{
 }
 
 .tile{
+    margin:5px;
     padding:15px;
     width:220px;
     display: flex;
@@ -257,10 +269,38 @@ h5{
     width:500px;
     display: flex;
     flex-direction: column;
-    background-color: rgba(231, 231, 231, 0.329);
+    background-color: rgba(231, 231, 231, 0);
     box-shadow: 0 4px 8px 0 rgba(44, 17, 79, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+
+    
+}
+
+.rel h4{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .quersim { 
+    padding-left: 2px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    color: rgb(48, 102, 99);
+    margin-top: 0px;
+}
+
+
+.more input {
     font-size: large;
+    border: solid rgb(48, 102, 99);
+    background-color: transparent;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: rgb(48, 102, 99);
+    margin-top: 10px;
+    border-radius: 5px;
+}
+.more input:hover {
+    background-color: rgb(48, 102, 99);
+    color: white;
+    cursor: pointer;
 }

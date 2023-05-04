@@ -12,7 +12,7 @@
     <body style = "background-image: url('https://cdn.pixabay.com/photo/2017/03/25/18/06/color-2174066__480.png');">
         <div class = "main">
 <div class = "test-style">
-    <div>
+    <div class = "b">
         <form action = "{{url_for('home')}}" method="post">
             <input class="homelink" type="submit" name="gohome" value="Go Home"/>    
         </form>
@@ -24,10 +24,11 @@
             {% for table in tables %}
             <div class = "tile">
                 <img src = {{table.5}}>
-                <p class = "center quersim" >Similarity: {{table.1}}%</p>
                 <div class = "title">
                     <h2>{{table.0}}</h2>
+                    <p class = "quersim" >{{table.1}}% Match</p>
                 </div>
+                
                 <div class = "facts">
                     <div class = "tile2">
                     <h6>Age</h6>
@@ -48,10 +49,12 @@
                 <div class = "desc">
                     <h2>{{table.3}}</h2>
                 </div>
+                <div class = "center more">
                 <form action = "{{url_for('home')}}" method="post">
                 <input class = "hidden" name = "detailpage" value = '{{table}}'/>
                 <input type="submit" name="details" value="See More"/>   
                 </form>   
+            </div>
             </div>
             {% endfor %} 
         </div>                        
