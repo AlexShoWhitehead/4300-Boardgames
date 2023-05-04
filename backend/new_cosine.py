@@ -82,6 +82,7 @@ def get_results(results, names, average_ratings, categories, descriptions, image
   return ranked_list    
 
 def output(query, database, invind, myidf, norms):
+    print(database.columns)
     game_data = database
     
     names = game_data['name'].astype('string').to_numpy()
