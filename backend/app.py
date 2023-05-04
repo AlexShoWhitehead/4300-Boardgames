@@ -4,6 +4,8 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 from helpers.MySQLDatabaseHandler import MySQLDatabaseHandler
 from new_cosine import output
+import csv
+import pandas as pd
 
 # ROOT_PATH for linking with all your files. 
 # Feel free to use a config.py or settings.py with a global export variable
@@ -25,41 +27,36 @@ mysql_engine.load_file_into_db()
 app = Flask(__name__)
 CORS(app)
 
+def make_dataframe(csv_path, delimiter):
+    rows = []
+    with open(csv_path, newline='', encoding='UTF-8') as csvfile:
+        reader = csv.reader(csvfile, delimiter=delimiter, quotechar='"', quoting=csv.QUOTE_ALL)
+        for row in reader:
+            for col in range(len(row)):
+                row[col].replace("â€™", "'")
+            rows.append(row)
+        csvfile.close()
+
+    df = pd.DataFrame(rows)
+    df.columns = df.iloc[0]
+    df = df[1:]
+
+    return df
+
 # Sample search, the LIKE operator in this case is hard-coded, 
 # but if you decide to use SQLAlchemy ORM framework, 
 # there's a much better and cleaner way to do this
 def sql_search(age, length, players):
-    query_sql = f"""SELECT * FROM boardgames"""
-    if (age != '' and length == '' and players == ''):
-        query_sql = f"""SELECT * FROM boardgames WHERE (min_age <= {age})""" 
-    elif (age != '' and length != '' and players == ''):
-        query_sql = f"""SELECT * FROM boardgames WHERE (min_age <= {age}) 
-            AND (play_time <= {length})"""
-    elif (length != '' and age == '' and players == ''):
-        query_sql = f"""SELECT * FROM boardgames WHERE (play_time <= {length})"""
-    elif (length != '' and players != '' and age == ''):
-        query_sql = f"""SELECT * FROM boardgames WHERE )
-            (play_time <= {length})
-            AND (min_players <= {players})
-            AND (max_players >= {players})"""
-    elif (age != '' and length == '' and players != ''):
-        query_sql = f"""SELECT * FROM boardgames WHERE (min_age <= {age})
-            AND (min_players <= {players})
-            AND (max_players >= {players})"""
-    elif (length == '' and players != '' and age == ''):
-         query_sql = f"""SELECT * FROM boardgames WHERE (min_players <= {players})
-            AND (max_players >= {players})"""
-    elif (age != '' and length != '' and players != ''):
-        query_sql = f"""SELECT * FROM boardgames WHERE (min_age <= {age})
-            AND (play_time <= {length})
-            AND (min_players <= {players})
-            AND (max_players >= {players})"""
-    keys = ["id","name", "year_published", "min_players", "max_players", "play_time",
-            "min_age", "users_rated", "rating_average", "bgg_rank", "complexity_average",
-            "owned_users", "mechanics", "domains", "categories", "statistical_data",
-            "qualitative_data", "image_data", "users_commented", "comments"] 
-    data = mysql_engine.query_selector(query_sql)
-    return json.dumps([dict(zip(keys,i)) for i in data])
+    game_data = make_dataframe('datasets/master_database.csv', ';')
+    print(age, length, players)
+    if(age != ''):
+        game_data = game_data[game_data['min_age'].astype('int') <= int(age)]
+    if(length != ''):
+        game_data = game_data[game_data['play_time'].astype('int') <= int(length)]
+    if(players != ''):
+        game_data = game_data[game_data['min_players'].astype('int') <= int(players)]
+        game_data = game_data[game_data['max_players'].astype('int') >= int(players)]
+    return game_data
 
 query = ''
 query2 = ''

@@ -69,22 +69,14 @@ def get_ranked_list(query, names, description_vectors, descriptions, comments, i
 # finally we should be able to take in the query and return the most similar
 # games
 def output(query, database):
-  game_data = pd.DataFrame.from_dict(json.loads(database)[0])
-  word_count = {}
-  descriptions = []
-  comments = []
-  names = []
-  images = []
-  avg_ratings = []
-  categories = []
-
-  for game in range(len(game_data)): 
-    descriptions.append(str(game_data[game]['qualitative_data']))
-    comments.append(str(game_data[game]['comments']))
-    names.append(str(game_data[game]['name']))
-    images.append(str(game_data[game]['image_data']))
-    avg_ratings.append(str(game_data[game]['rating_average']))
-    categories.append(str(game_data[game]['categories']))
+  game_data = database
+  names = game_data['name'].astype('string').to_numpy()
+  descriptions = game_data['description'].astype('string').to_numpy()
+  comments = game_data['comments'].astype('string').to_numpy()
+  images = game_data['image_data'].astype('string').to_numpy()
+  average_ratings = game_data['rating_average'].astype('string').to_numpy()
+  categories = game_data['categories'].astype('string').to_numpy()
+  images = game_data['image_data'].astype('string').to_numpy()
 
   for description in descriptions:
     tokens = tokenize(description)
@@ -113,4 +105,4 @@ def output(query, database):
   for description in descriptions:
     description_vectors.append(vectorize(description, good_types, tokenize))
 
-  return get_ranked_list(query, names, description_vectors, descriptions, comments, images, avg_ratings, categories, num_of_results = 3)
+  return get_ranked_list(query, names, description_vectors, descriptions, comments, images, average_ratings, categories, num_of_results = 3)
