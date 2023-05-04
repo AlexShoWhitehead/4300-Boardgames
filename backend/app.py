@@ -140,5 +140,4 @@ def home():
             return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4), invind, idf)))
     return render_template('base.html', title="sample html")
 
-
-# app.run(debug=True)
+#app.run(debug=True)
