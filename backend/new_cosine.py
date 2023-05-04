@@ -42,6 +42,7 @@ def accumulate_dot_scores(query_word_counts, index, idf):
                         doc_scores.update({tup[0]: idf[word] ** 2 * query_word_counts[word] * tup[1]})
                     else:
                         doc_scores.update({tup[0]: 0})
+    
     return doc_scores
 def get_word_counts(text):
   word_counts = {}
@@ -66,24 +67,28 @@ def index_search(query, index, idf, doc_norms, tokenizer, score_func=accumulate_
         norm_d = doc_norms[doc_id]
         numerator = dot_product_scores[doc_id]
         cos_score = numerator / np.dot(q_norm, norm_d)
+        print("id",doc_id)
         results.append( (cos_score, doc_id) )
     return sorted(results, reverse=True)
 
-def get_results(results, names, average_ratings, categories, descriptions, images, min_players, play_time, min_age, num_results = 10):
+def get_results(df, results, names, average_ratings, categories, descriptions, images, min_players, play_time, min_age, num_results = 10):
   ranked_list = []
-  if results == []:
+  if len(results) < 3:
       ranked_list.append("Sorry, we couldn't find any results :(")
+      return ranked_list
   else:
       for i in range(min(num_results, len(results))):
         index = results[i][1]
+        if index > len(names):
+            return ranked_list
         sim_score = round(results[i][0], 3)
         ranked_list.append([str(names[index]), str(int(sim_score * 100)), average_ratings[index], categories[index], descriptions[index], images[index][images[index].index("'image':")+10 : len(images[index])-2], min_players[index], play_time[index], min_age[index]])
 
   return ranked_list    
 
 def output(query, database, invind, myidf, norms):
-    print(database.columns)
-    game_data = database
+    game_data = database.reset_index()
+    game_data = game_data.drop(columns=["index"])
     
     names = game_data['name'].astype('string').to_numpy()
     descriptions = game_data['description'].astype('string').to_numpy()
@@ -110,7 +115,8 @@ def output(query, database, invind, myidf, norms):
     # query_word_counts = get_word_counts(query)
     # dot_scores = accumulate_dot_scores(query_word_counts, inv_idx, idf)
     results = index_search(query, inv_idx, idf, doc_norms, tokenize, score_func=accumulate_dot_scores)
-    r_list = get_results(results, names, average_ratings, categories, descriptions, images, min_players, play_time, min_age)
+    print(len(results))
+    r_list = get_results(game_data, results, names, average_ratings, categories, descriptions, images, min_players, play_time, min_age)
   
 
     return r_list

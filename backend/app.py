@@ -14,6 +14,19 @@ import numpy as np
 # Feel free to use a config.py or settings.py with a global export variable
 os.environ['ROOT_PATH'] = os.path.abspath(os.path.join("..",os.curdir))
 
+# These are the DB credentials for your OWN MySQL
+# Don't worry about the deployment credentials, those are fixed
+# You can use a different DB name if you want to
+MYSQL_USER = "root"
+MYSQL_USER_PASSWORD = "21Alshow!"
+MYSQL_PORT = 3306
+MYSQL_DATABASE = "master_database"
+
+mysql_engine = MySQLDatabaseHandler(MYSQL_USER,MYSQL_USER_PASSWORD,MYSQL_PORT,MYSQL_DATABASE)
+
+# Path to init.sql file. This file can be replaced with your own file for testing on localhost, but do NOT move the init.sql file
+mysql_engine.load_file_into_db()
+
 app = Flask(__name__)
 CORS(app)
 
@@ -40,14 +53,11 @@ def sql_search(age, length, players):
     game_data = make_dataframe('datasets/master_database.csv', ';')
     if(age != ''):
         game_data = game_data[game_data['min_age'].astype('int') <= int(age)]
-        game_data.drop('0')
     if(length != ''):
         game_data = game_data[game_data['play_time'].astype('int') <= int(length)]
-        game_data.drop('0')
     if(players != ''):
         game_data = game_data[game_data['min_players'].astype('int') <= int(players)]
         game_data = game_data[game_data['max_players'].astype('int') >= int(players)]
-        game_data.drop('0')
     return game_data
 
 query = ''
@@ -106,8 +116,12 @@ def home():
         if secondQuery != None:
             sum = ast.literal_eval(request.form.get("tunnel"))
             rele1 = request.form.get("rele" + sum[0][0])
-            rele2 = request.form.get("rele" + sum[1][0])
-            rele3 = request.form.get("rele" + sum[2][0])
+            rele2 = None
+            rele3 = None
+            if len(sum) > 1:
+                rele2 = request.form.get("rele" + sum[1][0])
+                if len(sum) > 2:
+                    rele3 = request.form.get("rele" + sum[2][0])
             relevant = []
             irr = []
             if rele1 != None:
