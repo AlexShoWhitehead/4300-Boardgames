@@ -13,14 +13,14 @@
 <div class = "test-style">
     <div>
         <form action = "{{url_for('home')}}" method="post">
-            <input type="submit" name="gohome" value="Go Home"/>    
+            <input class="homelink" type="submit" name="gohome" value="Go Home"/>    
         </form>
     </div>
-        <div class ="center">
-        <div class = "game-list">
+        <div>
+        <div>
             <div class = "tile">
                 <img src = {{tables.5}}>
-                <p>{{tables.1}}%</p>
+                <p class="center quersim">{{tables.1}}%</p>
                 <div class = "title">
                     <h2>{{tables.0}}</h2>
                 </div>
@@ -47,7 +47,6 @@
                 </div>
                 <!--<h2 class = "ital">{{tables}}</h2> -->
             </div>
-            {% endfor %}   
         </div>                        
         </div>
     </div>

@@ -14,7 +14,7 @@
 
         <div>
             <form action = "{{url_for('home')}}" method="post">
-                <input type="submit" name="gohome" value="Go Home"/>    
+                <input class="homelink" type="submit" name="gohome" value="Go Home"/>    
             </form>
         </div>
         <div class = "main two">
@@ -27,11 +27,12 @@
         <progress id="file" value="50" max="100"> 50% </progress>
 
         <!--Pull top three games-->
-        <div class = search-tile>
             
             {% for table in tables[:3] %}
+            <div class = "search-tile">
                 <h2 class = "ital">{{table.0}}</h2>
-                <p class = "ital">{{table.1}}</p>               
+                <h3 class = "ital">Categories: {{table.3}}</h3>
+                <p class = "ital quersim">Query Similarity: {{table.1}}%</p>               
                 <form action = "{{url_for('home')}}" method="post">
                 <input class = 'hidden' value = '{{tables}}' name = 'tunnel' id = 'tunnel'>
                 <div class="button-group" role="group" aria-labelledby="rel">

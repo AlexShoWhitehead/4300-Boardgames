@@ -14,18 +14,17 @@
 <div class = "test-style">
     <div>
         <form action = "{{url_for('home')}}" method="post">
-            <input type="submit" name="gohome" value="Go Home"/>    
+            <input class="homelink" type="submit" name="gohome" value="Go Home"/>    
         </form>
     </div>
-        <div class ="center">
+        <div>
             <h1>Here are your games!</h1>
             <!--Displaying the converted table-->
         <div class = "game-list">
-            <form action = "{{url_for('home')}}" method="post"></form>
             {% for table in tables %}
             <div class = "tile">
                 <img src = {{table.5}}>
-                <p>{{table.1}}%</p>
+                <p class = "center quersim" >Similarity: {{table.1}}%</p>
                 <div class = "title">
                     <h2>{{table.0}}</h2>
                 </div>
@@ -49,11 +48,12 @@
                 <div class = "desc">
                     <h2>{{table.3}}</h2>
                 </div>
-                <input class = "hidden" name = "detailpage" value = {{table}}/>
+                <form action = "{{url_for('home')}}" method="post">
+                <input class = "hidden" name = "detailpage" value = '{{table}}'/>
                 <input type="submit" name="details" value="See More"/>   
+                </form>   
             </div>
             {% endfor %} 
-        </form>   
         </div>                        
         </div>
     </div>

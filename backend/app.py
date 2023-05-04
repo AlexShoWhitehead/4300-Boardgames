@@ -94,6 +94,7 @@ def rocchio(summation, relevant, irrelevant,a=1, b=.3, c=.7, clip = True):
 
 # pre_inv(build_inverted_index, make_dataframe, tokenize)
 invind = read_mat('datasets/inv_ind.txt')
+idf = read_mat('datasets/idf.txt')
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -107,6 +108,7 @@ def home():
         details = request.form.get("details")
         detailsInfo = request.form.get("detailpage")
         if(details != None):
+            detailsInfo = ast.literal_eval(detailsInfo)
             return render_template('results.html', tables = detailsInfo)
         if(homeQuery != None):
             return render_template('base.html', title="sample html")
@@ -135,7 +137,7 @@ def home():
                         return render_template('catalogue.html', tables = rocchio(sum, relevant, irr))
             return render_template('catalogue.html', tables = sum)
         else:
-            return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4), invind)))
+            return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4), invind, idf)))
     return render_template('base.html', title="sample html")
 
 

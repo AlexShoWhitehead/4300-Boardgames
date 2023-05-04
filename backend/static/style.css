@@ -16,13 +16,27 @@ img{
     height: 250px;
 }
 
-
+.homelink { 
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 50px;
+    width: 70px;
+    font-family: 'Open Sans', sans-serif;
+    color: rgb(6, 71, 78);
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 1px solid rgb(48, 102, 99);
+}
 
 .game-list{
     padding-top: 30px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .title{
@@ -148,6 +162,10 @@ select{
     border:2px solid rgb(255, 255, 255);
     }
 
+.center { 
+    text-align: center;
+}
+
 h1{
 
     display: flex;
@@ -229,4 +247,20 @@ h5{
 
 .hidden { 
     display: none;
+}
+
+.search-tile { 
+    padding:15px;
+    padding-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width:500px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(231, 231, 231, 0.329);
+    box-shadow: 0 4px 8px 0 rgba(44, 17, 79, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+.quersim { 
+    font-size: large;
 }
