@@ -70,7 +70,6 @@ def get_ranked_list(query, names, description_vectors, descriptions, comments, i
 # games
 def output(query, database):
   game_data = pd.DataFrame.from_dict(json.loads(database)[0])
-  return game_data
   word_count = {}
   descriptions = []
   comments = []

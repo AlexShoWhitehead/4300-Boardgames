@@ -71,8 +71,6 @@ def index_search(query, index, idf, doc_norms, tokenizer, score_func=accumulate_
     results = []
     tokenized_query = tokenizer(query.lower())
     query_words = get_word_counts(query)
-    print('words', query_words)
-
     dot_product_scores = score_func(query_words, index, idf)
 
     q_sum = 0
