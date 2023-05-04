@@ -12,20 +12,68 @@
     background-color: rgb(20, 150, 133);
 }
 
+img{
+    height: 250px;
+}
+
+
+
 .game-list{
+    padding-top: 30px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
+.title{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.facts{
+    display: flex;
+    flex-direction: row;
+}
+
+.tile2{
+    margin-right:5px;
+    padding:2px;
+    background-color: rgba(220, 220, 220, 0.478);
+    width: 50px;
+    border-radius: 3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tile2 p{
+    padding:0px;
+    margin:0px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.tile2 h6{
+    padding:0px;
+    margin:0px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.desc{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 9px;
+}
+
 .tile{
-    background-color: rgb(235, 235, 235);
+    padding:15px;
+    width:220px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(231, 231, 231, 0.329);
+    box-shadow: 0 4px 8px 0 rgba(44, 17, 79, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
 }
 
 .main{
    padding:30px;
-   background-color: rgb(255, 255, 255);
-   border-radius: 10px;
+   background-color: rgba(255, 255, 255, 0.498);
    display: flex;
    flex-direction: column;
     align-items: center;
@@ -33,6 +81,17 @@
     margin-top:120px;
 }
 
+.test-style h1{
+    color:rgb(48, 102, 99);
+    
+    font-size: 60px;
+ }
+
+.main  {
+
+    background-color: rgba(255, 255, 255, 0.915);
+}
+ 
 header img{
     height: 100%;
     width: 100%;
@@ -74,10 +133,10 @@ select{
     padding: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    color: rgb(6, 82, 133);
+    color: rgb(6, 71, 78);
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    border: 1px solid rgb(6, 82, 133);
+    border: 1px solid rgb(48, 102, 99);
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
@@ -85,7 +144,7 @@ select{
     .subm:hover {
     cursor:pointer;
     color:rgb(255, 255, 255);
-    background-color:rgb(6, 82, 133);
+    background-color:rgb(48, 102, 99);
     border:2px solid rgb(255, 255, 255);
     }
 
@@ -94,7 +153,7 @@ h1{
     display: flex;
     align-items: center;
     font-family: 'Open Sans', sans-serif;
-    color:rgb(6, 82, 133);
+    color:rgb(48, 102, 99);
     margin-bottom: 0;
     margin-right: 3px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -120,7 +179,7 @@ h5{
 
 .input-box{
 
-    background-color:rgb(255, 255, 255);
+    background-color:rgba(255, 255, 255, 0.012);
     border:.3px solid rgba(0, 0, 0, 0);
     display: flex;
     align-items: center;
@@ -139,7 +198,7 @@ h5{
 
 .input-box input{
     font-weight: lighter;
-    background-color:rgb(255, 255, 255);
+    background-color:rgba(255, 255, 255, 0.199);
     font-family: 'Open Sans', sans-serif;
     width: 100%;
     margin-left: 0px;
