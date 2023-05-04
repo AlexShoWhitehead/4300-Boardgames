@@ -42,16 +42,16 @@ def accumulate_dot_scores(query_word_counts, index, idf):
     doc_scores = {}
 
     for word in query_word_counts:
-        for tup in index[word]:
-            if tup[0] in doc_scores:
-                if word in idf:
-                    doc_scores[tup[0]] += idf[word] ** 2 * query_word_counts[word] * tup[1]
-            else:
-                if word in idf:
-                    doc_scores.update({tup[0]: idf[word] ** 2 * query_word_counts[word] * tup[1]})
+        if word in index:
+            for tup in index[word]:
+                if tup[0] in doc_scores:
+                    if word in idf:
+                        doc_scores[tup[0]] += idf[word] ** 2 * query_word_counts[word] * tup[1]
                 else:
-                    doc_scores.update({tup[0]: 0})
-
+                    if word in idf:
+                        doc_scores.update({tup[0]: idf[word] ** 2 * query_word_counts[word] * tup[1]})
+                    else:
+                        doc_scores.update({tup[0]: 0})
 
     return doc_scores
 
@@ -86,7 +86,7 @@ def index_search(query, index, idf, doc_norms, tokenizer, score_func=accumulate_
         numerator = dot_product_scores[doc_id]
         cos_score = numerator / np.dot(q_norm, norm_d)
         results.append( (cos_score, doc_id) )
-    
+
     return sorted(results, reverse=True)
 
 def make_matrix(query, results):
@@ -124,10 +124,13 @@ def rocchio(initQuery, sim_scores, relevant, irrelevant,a=.3, b=.3, c=.8, clip =
 
 def get_results(results, names, average_ratings, categories, descriptions, images, num_results = 2):
   ranked_list = []
-  for i in range(num_results):
-    index = results[i][1]
-    sim_score = round(results[i][0], 3)
-    ranked_list.append([names[index], str(sim_score), average_ratings[index], categories[index], descriptions[index], images[index][images[index].index("'image':")+10 : len(images[index])-2]])
+  if results == []:
+      ranked_list.append("Sorry, we couldn't find any results :(")
+  else:
+      for i in range(min(num_results, len(results))):
+        index = results[i][1]
+        sim_score = round(results[i][0], 3)
+        ranked_list.append([names[index], str(sim_score), average_ratings[index], categories[index], descriptions[index], images[index][images[index].index("'image':")+10 : len(images[index])-2]])
 
   return ranked_list
 
@@ -154,7 +157,7 @@ def output(query, database):
     images = game_data['image_data'].astype('string').to_numpy()
 
     doc_tokens = []
-    
+
     for i in range(len(descriptions)):
       tokens = tokenize(descriptions[i])
       tokens += tokenize(comments[i])
