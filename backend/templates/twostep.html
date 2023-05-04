@@ -11,6 +11,12 @@
 
     <body style = "background-image: url('https://cdn.pixabay.com/photo/2017/03/25/18/06/color-2174066__480.png');">
         
+
+        <div>
+            <form action = "{{url_for('home')}}" method="post">
+                <input type="submit" name="gohome" value="Go Home"/>    
+            </form>
+        </div>
         <div class = "main two">
         <h5>
             Refine your search results by reviewing these games:
@@ -23,20 +29,18 @@
         <!--Pull top three games-->
         <div class = search-tile>
             
-            {% for table in tables %}
+            {% for table in tables[:3] %}
                 <h2 class = "ital">{{table.0}}</h2>
-                <p class = "ital">{{table.1}}</p>
-                <p class = "ital">{{table.2}}</p>
-                
+                <p class = "ital">{{table.1}}</p>               
                 <form action = "{{url_for('home')}}" method="post">
                 <input class = 'hidden' value = '{{tables}}' name = 'tunnel' id = 'tunnel'>
                 <div class="button-group" role="group" aria-labelledby="rel">
                 <div id="rel">How Relevant Is This Game To Your Search?</div>
 
                 <label for="radio1">Relevant:</label>
-                <input type = "radio" id="radio1" name="rele" value="Relevant" >
+                <input type = "radio" id="radio1" name='rele{{table.0}}' value="Relevant" >
                 <label for="radio2">Irrelevant:</label>
-                <input type = "radio" id="radio2" name="rele" value="Irrelevant">
+                <input type = "radio" id="radio2" name='rele{{table.0}}' value="Irrelevant">
             </div>
 
             {% endfor %}     

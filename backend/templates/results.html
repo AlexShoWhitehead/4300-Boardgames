@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> Table </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+        <link rel="stylesheet" type="text/css" href="../static/style.css"> 
+        <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Montserrat&family=Open+Sans:wght@500&display=swap" rel="stylesheet">         
+    </head>
+    <body style = "background-image: url('https://cdn.pixabay.com/photo/2017/03/25/18/06/color-2174066__480.png');">
+        <div class = "main">
+<div class = "test-style">
+    <div>
+        <form action = "{{url_for('home')}}" method="post">
+            <input type="submit" name="gohome" value="Go Home"/>    
+        </form>
+    </div>
+        <div class ="center">
+        <div class = "game-list">
+            <div class = "tile">
+                <img src = {{tables.5}}>
+                <p>{{tables.1}}%</p>
+                <div class = "title">
+                    <h2>{{tables.0}}</h2>
+                </div>
+                <div class = "facts">
+                    <div class = "tile2">
+                    <h6>Age</h6>
+                    <p>{{tables.8}}+</p>
+                    </div>
+                    
+                    <div class = "tile2">
+                    <h6>Time</h6>
+                    <p>{{tables.7}} Mins</p>
+                    </div>
+                    
+                    <div class = "tile2">
+                    <h6>Players</h6>
+                    <p>{{tables.6}}</p>
+                    </div>
+                </div>
+    
+                <div class = "desc">
+                    <h2>{{tables.3}}</h2>
+                    <p>{{tables.4}}</p>
+                </div>
+                <!--<h2 class = "ital">{{tables}}</h2> -->
+            </div>
+            {% endfor %}   
+        </div>                        
+        </div>
+    </div>
+    </div>
+
+    </body>
+</html>
