@@ -71,7 +71,7 @@ def make_matrix(query, results):
     sim_scores[i] = results[i]
   return sim_scores
 
-def rocchio(summation, relevant, irrelevant,a=1, b=.3, c=.7, clip = True):
+def rocchio(summation, relevant, irrelevant,a=.3, b=.3, c=.8, clip = True):
     for element in summation:
         initQuery = a * float(element[1])
         if not len(relevant) == 0:
@@ -145,4 +145,4 @@ def home():
             return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4), invind, idf, norms)))
     return render_template('base.html', title="sample html")
 
-# app.run(debug=True)
+app.run(debug=True)
