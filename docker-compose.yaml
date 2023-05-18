@@ -16,7 +16,7 @@ services:
                 flask_network:
                         aliases:
                                 - flask-network
-        command: flask run --host=0.0.0.0 --port=5000
+        command: flask run --host=0.0.0.0 --port=4526
     db:
         container_name: boardgame_db
         image: mysql:5.7
