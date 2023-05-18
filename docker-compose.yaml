@@ -24,7 +24,7 @@ services:
         environment:
                 - MYSQL_USER=admin
                 - MYSQL_PASSWORD=admin
-                - MYSQL_DATABASE=boardgames_db
+                - MYSQL_DATABASE=boardgame_db
                 - MYSQL_ROOT_PASSWORD=admin
         volumes:
                 - flask_volume:/var/lib/mysql
