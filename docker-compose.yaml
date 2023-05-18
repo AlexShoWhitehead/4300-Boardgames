@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     backend_flask_app:
-        container_name: ${TEAM_NAME}_backend_app
+        container_name: boardgame_backend_app
         restart: always
         build:
                 context: ./backend
@@ -18,7 +18,7 @@ services:
                                 - flask-network
         command: flask run --host=0.0.0.0 --port=5000
     db:
-        container_name: ${TEAM_NAME}_db
+        container_name: boardgame_db
         image: mysql:5.7
         restart: always
         environment:
