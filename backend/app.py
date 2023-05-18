@@ -19,7 +19,7 @@ os.environ['ROOT_PATH'] = os.path.abspath(os.path.join("..",os.curdir))
 # You can use a different DB name if you want to
 MYSQL_USER = "root"
 MYSQL_USER_PASSWORD = "21Alshow!"
-MYSQL_PORT = 3306
+MYSQL_PORT = 4526
 MYSQL_DATABASE = "boardgame_db"
 
 mysql_engine = MySQLDatabaseHandler(MYSQL_USER,MYSQL_USER_PASSWORD,MYSQL_PORT,MYSQL_DATABASE)
