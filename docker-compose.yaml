@@ -11,7 +11,7 @@ services:
         depends_on:
                 - db
         environment:
-                - DB_NAME=${TEAM_NAME}_db
+                - DB_NAME=boardgame_db
         networks:
                 flask_network:
                         aliases:
@@ -22,10 +22,10 @@ services:
         image: mysql:5.7
         restart: always
         environment:
-                - MYSQL_USER=${MYSQL_ONLINE_USER}
-                - MYSQL_PASSWORD=${MYSQL_ONLINE_PASSWORD}
+                - MYSQL_USER=admin
+                - MYSQL_PASSWORD=admin
                 - MYSQL_DATABASE=${MYSQL_ONLINE_DATABASE}
-                - MYSQL_ROOT_PASSWORD=${MYSQL_ONLINE_ROOT_PASSWORD}
+                - MYSQL_ROOT_PASSWORD=admin
         volumes:
                 - flask_volume:/var/lib/mysql
                 - ./init.sql:/docker-entrypoint-initdb.d/init.sql
