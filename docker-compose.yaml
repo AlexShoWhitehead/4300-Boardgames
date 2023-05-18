@@ -22,8 +22,8 @@ services:
         image: mysql:5.7
         restart: always
         environment:
-                - MYSQL_USER=admin
-                - MYSQL_PASSWORD=admin
+                - MYSQL_USER=root
+                - MYSQL_PASSWORD=
                 - MYSQL_DATABASE=${MYSQL_ONLINE_DATABASE}
                 - MYSQL_ROOT_PASSWORD=
         volumes:
