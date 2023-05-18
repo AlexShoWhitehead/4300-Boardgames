@@ -25,7 +25,7 @@ services:
                 - MYSQL_USER=admin
                 - MYSQL_PASSWORD=admin
                 - MYSQL_DATABASE=${MYSQL_ONLINE_DATABASE}
-                - MYSQL_ROOT_PASSWORD=${MYSQL_ONLINE_ROOT_PASSWORD}
+                - MYSQL_ROOT_PASSWORD=admin
         volumes:
                 - flask_volume:/var/lib/mysql
                 - ./init.sql:/docker-entrypoint-initdb.d/init.sql
