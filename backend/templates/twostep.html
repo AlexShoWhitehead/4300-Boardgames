@@ -13,7 +13,7 @@
         
 
         <div>
-            <form action = "{{url_for('home')}}" method="post">
+            <form  method="post">
                 <input class="homelink" type="submit" name="gohome" value="Go Home"/>    
             </form>
         </div>
@@ -32,13 +32,13 @@
             <div class = "title">
                 <h2>Sorry, we couldn't find any results!</h2>
             </div>
-            {% endif %}
+            {% else %}
             {% for table in tables[:3] %}
             
                 <h2 class = "ital">{{table.0}}</h2>
                 <h3 class = "ital">Categories: {{table.3}}</h3>
                 <p class = "ital quersim">Query Similarity: {{table.1}}%</p>               
-                <form action = "{{url_for('home')}}" method="post">
+                <form  method="post">
                 <input class = 'hidden' value = '{{tables}}' name = 'tunnel' id = 'tunnel'>
                 <div class="button-group" role="group" aria-labelledby="rel">
                 <div id="rel"><h4>How Relevant Is This Game To Your Search?</h4></div>
@@ -52,7 +52,8 @@
             {% endfor %}  
         </div>   
             <input class = "subm" type="submit" id = "filter-link" name="relevant" value="Submit" onclick="filterText()" />    
-            </form>                  
+            </form>            
+            {% endif %}      
         </div>
 
     </div>

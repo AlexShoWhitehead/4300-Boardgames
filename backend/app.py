@@ -52,7 +52,7 @@ def make_dataframe(csv_path, delimiter):
 def sql_search(age, length, players):
     game_data = make_dataframe('datasets/master_database.csv', ';')
     if(age != ''):
-        game_data = game_data[game_data['min_age'].astype('int') <= int(age)]
+        game_data = game_data[game_data['min_age'].astype('int') >= int(age)]
     if(length != ''):
         game_data = game_data[game_data['play_time'].astype('int') <= int(length)]
     if(players != ''):
@@ -71,9 +71,8 @@ def make_matrix(query, results):
     sim_scores[i] = results[i]
   return sim_scores
 
-def rocchio(summation, relevant, irrelevant,a=.5, b= .7, c=1.5, clip = True):
+def rocchio(summation, relevant, irrelevant,a=1, b= .3, c=1.5, clip = True):
     for element in summation:
-        print(element)
         initQuery = a * float(element[1])
         if (relevant != []):
             secondPre = b * (1 / len(relevant))
@@ -130,6 +129,7 @@ def home():
                     rele3 = request.form.get("rele" + sum[2][0])
             relevant = []
             irr = []
+            # print(rele1, rele2, rele3)
             if (rele1 != None) or (rele2 != None) or (rele3 != None):
                 if rele1 != None:
                     if rele1 == 'Relevant':
@@ -147,9 +147,9 @@ def home():
                     else:
                         irr.append(sum[2]) 
                 return render_template('catalogue.html', tables = rocchio(sum, relevant, irr))
-            return render_template('catalogue.html', tables = rocchio(sum, relevant, irr))
+            return render_template('catalogue.html', tables = sum)
         else:
             return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4), invind, idf, norms)))
     return render_template('base.html', title="sample html")
 
-app.run(debug=True)
+# app.run(debug=True)
