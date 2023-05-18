@@ -7,7 +7,6 @@ def tokenize(text):
 def build_inverted_index(msgs):
     d  ={}
     for i in range(len(msgs)):
-        print(i)
         unique_words = set(msgs[i]['toks'])
         for word in unique_words:
             if word in d.keys():
@@ -67,15 +66,13 @@ def index_search(query, index, idf, doc_norms, tokenizer, score_func=accumulate_
         norm_d = doc_norms[doc_id]
         numerator = dot_product_scores[doc_id]
         cos_score = numerator / np.dot(q_norm, norm_d)
-        print("id",doc_id)
         results.append( (cos_score, doc_id) )
     return sorted(results, reverse=True)
 
 def get_results(df, results, names, average_ratings, categories, descriptions, images, min_players, play_time, min_age, num_results = 10):
   ranked_list = []
-  if len(results) < 3:
-      ranked_list.append("Sorry, we couldn't find any results :(")
-      return ranked_list
+  if results == []:
+      return []
   else:
       for i in range(min(num_results, len(results))):
         index = results[i][1]
@@ -115,8 +112,6 @@ def output(query, database, invind, myidf, norms):
     # query_word_counts = get_word_counts(query)
     # dot_scores = accumulate_dot_scores(query_word_counts, inv_idx, idf)
     results = index_search(query, inv_idx, idf, doc_norms, tokenize, score_func=accumulate_dot_scores)
-    print(len(results))
     r_list = get_results(game_data, results, names, average_ratings, categories, descriptions, images, min_players, play_time, min_age)
-  
 
     return r_list

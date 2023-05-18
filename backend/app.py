@@ -71,24 +71,30 @@ def make_matrix(query, results):
     sim_scores[i] = results[i]
   return sim_scores
 
-def rocchio(summation, relevant, irrelevant,a=.3, b=.3, c=.8, clip = True):
+def rocchio(summation, relevant, irrelevant,a=.5, b= .7, c=1.5, clip = True):
     for element in summation:
+        print(element)
         initQuery = a * float(element[1])
-        if not len(relevant) == 0:
+        if (relevant != []):
             secondPre = b * (1 / len(relevant))
             secondSum = int(relevant[0][1])
-            for d in range(len(relevant) - 1):
-                print(relevant[d + 1][1])
-                secondSum = secondSum + int(relevant[d + 1][1])
+            if (len(relevant) > 1):
+                for d in range(len(relevant) - 1):
+                    secondSum = secondSum + int(relevant[d + 1][1])
             secondSum = secondPre * float(secondSum)
             initQuery = initQuery + secondSum
-        if not len(irrelevant) == 0:
+        if (irrelevant != []):
             thirdPre = c * (1 / len(irrelevant))
             thirdSum = int(irrelevant[0][1])
-            for i in range(len(irrelevant) - 1):
-                thirdSum = thirdSum + int(irrelevant[i + 1][1])
+            if (len(irrelevant) > 1):
+                for i in range(len(irrelevant) - 1):
+                    thirdSum = thirdSum + int(irrelevant[i + 1][1])
             thirdSum = thirdPre * float(thirdSum)
             initQuery = initQuery - thirdSum
+        if initQuery < 0: 
+            initQuery = 0
+        if initQuery > 100:
+            initQuery = 99
         element[1] = str(int(initQuery))
     return sorted(summation, key=lambda x: int(x[1]), reverse=True)
 
@@ -124,23 +130,24 @@ def home():
                     rele3 = request.form.get("rele" + sum[2][0])
             relevant = []
             irr = []
-            if rele1 != None:
-                if rele1 == 'Relevant':
-                    relevant.append(sum[0])
-                else:
-                    irr.append(sum[0])
+            if (rele1 != None) or (rele2 != None) or (rele3 != None):
+                if rele1 != None:
+                    if rele1 == 'Relevant':
+                        relevant.append(sum[0])
+                    else:
+                        irr.append(sum[0])
                 if rele2 != None:
                     if rele2 == 'Relevant':
                         relevant.append(sum[1])
                     else:
                         irr.append(sum[1])
-                    if rele3 != None:
-                        if rele3 == 'Relevant':
-                            relevant.append(sum[2])
-                        else:
-                            irr.append(sum[2])
-                        return render_template('catalogue.html', tables = rocchio(sum, relevant, irr))
-            return render_template('catalogue.html', tables = sum)
+                if rele3 != None:
+                    if rele3 == 'Relevant':
+                        relevant.append(sum[2])
+                    else:
+                        irr.append(sum[2]) 
+                return render_template('catalogue.html', tables = rocchio(sum, relevant, irr))
+            return render_template('catalogue.html', tables = rocchio(sum, relevant, irr))
         else:
             return render_template('twostep.html', tables=(output(query, sql_search(query2, query3, query4), invind, idf, norms)))
     return render_template('base.html', title="sample html")

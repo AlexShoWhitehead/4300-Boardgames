@@ -28,6 +28,11 @@
 
         <!--Pull top three games-->
         <div class = "search-tile">
+            {% if tables == [] %}
+            <div class = "title">
+                <h2>Sorry, we couldn't find any results!</h2>
+            </div>
+            {% endif %}
             {% for table in tables[:3] %}
             
                 <h2 class = "ital">{{table.0}}</h2>
